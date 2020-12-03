@@ -1,13 +1,63 @@
-import React from 'react'
-import { Button, Input } from 'semantic-ui-react'
+import React, { Component } from "react";
+import { Input, Button } from "semantic-ui-react";
+import axios from "axios";
 
-const GHSearch = () => {
-  return (
-    <>
-      <Input type="text" name="search" placeholder="Input GH username"/>
-      <Button name="search">Search</Button>
-    </>
-  )
+class GHSearch extends Component {
+  state = {
+    searchValue: "",
+    gitHubUsers: []
+  };
+
+  setInputValue(event) {
+    this.setState({ searchValue: event.target.value });
+  }
+
+  async performSearch(event) {
+    let q = this.state.searchValue
+    let response = await axios.get(`https://api.github.com/search/users?q=${q}`)
+    this.setState({gitHubUsers: response.data.items})
+    debugger;
+  }
+  render() {
+    return (
+      <>
+        <Input
+          type="text"
+          data-cy="search_input"
+          placeholder="Input GH username"
+          onChange={(event) => this.setInputValue(event)}
+        />
+        <Button
+          onClick={(event) => this.performSearch(event)}
+          data-cy="search_button"
+        >
+          Search
+        </Button>
+        <div data-cy="search_results" />
+      </>
+    );
+  }
 }
 
-export default GHSearch
+export default GHSearch;
+
+// import React from "react";
+// import { Button, Input } from "semantic-ui-react";
+
+// const GHSearch = () => {
+//   return (
+//     <>
+//       <Input
+//         type="text"
+//         data-cy="search_input"
+//         placeholder="Input GH username"
+//       />
+//       <Button
+//         onClick={()=> performSearch()}
+//         data-cy="search_button">Search</Button>
+//         <div data-cy="search_results" />
+//     </>
+//   );
+// };
+
+// export default GHSearch;
