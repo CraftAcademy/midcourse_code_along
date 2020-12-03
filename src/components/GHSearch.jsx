@@ -31,7 +31,7 @@ class GHSearch extends Component {
           onChange={event => this.setInputValue(event)}
 				/>
 				<Button
-          onClick={(event) => this.performSearch(event)}
+          onClick={() => this.performSearch()}
           data-cy="search_button">
 					Search
 				</Button>
