@@ -1,10 +1,11 @@
+/* eslint-disable no-undef */
 describe('Application main view', () => {
   beforeEach(() => {
     cy.visit('/')
   });
 
-  it('contains titel', () => {
-    cy.get("section[name='title']")
+  it('contains title', () => {
+    cy.get("section[data-cy='title']")
       .should('contain', 'GitHub Search engine')
   });
 });
