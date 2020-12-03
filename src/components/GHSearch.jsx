@@ -11,7 +11,7 @@ class GHSearch extends Component {
   setInputValue(e) {
     this.setState({searchValue: e.target.value})
   }
-  async performSearch(e) {
+  async performSearch() {
     const q = this.state.searchValue 
     let response = await axios.get(`https://api.github.com/search/users?q=${q}`)
     this.setState({ gitHubUsers: response.data.items })
@@ -30,7 +30,7 @@ class GHSearch extends Component {
           placeholder="Input GH username"
           onChange={(e) => this.setInputValue(e) }/>
         <Button 
-          onClick={(e)=> this.performSearch(e)}
+          onClick={()=> this.performSearch()}
           data-cy="search_button">
           Search
         </Button>
