@@ -15,9 +15,13 @@ class GHSearch extends Component {
     const q = this.state.searchValue
     let response = await axios.get(`https://api.github.com/search/users?q=${q}`)
     this.setState({ gitHubUsers: response.data.items })
-    
   }
   render() {
+    let displayUsers = this.state.gitHubUsers.map(user => {
+      return (
+        <li key={user.id}> {user.login} </li>
+      )
+    })
     return (
       <>
         <Input
@@ -31,7 +35,9 @@ class GHSearch extends Component {
           Search
           </Button>
         <div data-cy="search_results">
-
+          <ul>
+            {displayUsers}
+          </ul>
         </div>
       </>
     );
